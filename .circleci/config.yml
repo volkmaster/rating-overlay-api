@@ -1,0 +1,130 @@
+version: 2.1
+
+executors:
+  default-executor:
+    docker:
+      - image: circleci/python:3.7
+        entrypoint: sh
+
+commands:
+  setup_ci_env:
+    steps:
+      - checkout
+      - run:
+          name: Create virtual environment
+          command: python3 -m venv venv
+      - restore_cache:
+          keys:
+            - pip-packages-v1-{{ .Branch }}-{{ checksum "poetry.lock" }}
+            - pip-packages-v1-{{ .Branch }}-
+            - pip-packages-v1-
+      - run:
+          name: Install dependencies
+          command: |
+            . venv/bin/activate
+            pip install awscli poetry
+            poetry install
+      - save_cache:
+          key: pip-packages-v1-{{ .Branch }}-{{ checksum "poetry.lock" }}
+          paths:
+            - "venv"
+
+jobs:
+  build:
+    executor: default-executor
+    steps:
+      - setup_ci_env
+
+  test:
+    executor: default-executor
+    steps:
+      - setup_ci_env
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
+            pytest
+
+  cichecks:
+    executor: default-executor
+    steps:
+      - setup_ci_env
+      - run:
+          name: Isort
+          command: |
+            . venv/bin/activate
+            python -m isort --check-only
+      - run:
+          name: Black
+          command: |
+            . venv/bin/activate
+            python -m black --config .black.toml --check .
+      - run:
+          name: Bandit
+          command: |
+            . venv/bin/activate
+            python -m bandit -c .bandit.yaml -r
+      - run:
+          name: Mypy
+          command: |
+            . venv/bin/activate
+            python -m mypy --config-file=mypy.ini .
+      - run:
+          name: Prospector
+          command: |
+            . venv/bin/activate
+            python -m prospector --messages-only
+      - run:
+          name: Linting
+          command: |
+            . venv/bin/activate
+            SKIP=isort,black,bandit,mypy,prospector python -m pre_commit run --all-files
+
+  deploy:
+    parameters:
+      stage:
+        default: "development"
+        type: enum
+        enum: ["development", "production"]
+    executor: default-executor
+    steps:
+      - setup_ci_env
+      - run:
+          name: Deploy zappa app
+          command: |
+            . venv/bin/activate
+            zappa update << parameters.stage >>
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - cichecks:
+          requires:
+            - build
+
+      - deploy:
+          stage: "development"
+          requires:
+            - test
+            - cichecks
+          filters:
+            branches:
+              only: develop
+
+      - hold-production:
+          type: approval
+          requires:
+            - test
+            - cichecks
+          filters:
+            branches:
+              only: master
+      - deploy:
+          stage: "production"
+          requires:
+            - hold-production
