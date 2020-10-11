@@ -63,7 +63,7 @@ jobs:
           name: Bandit
           command: |
             . venv/bin/activate
-            python -m bandit -c .bandit.yaml -r
+            python -m bandit -c .bandit.yaml -r .
       - run:
           name: Mypy
           command: |
