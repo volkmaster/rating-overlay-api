@@ -1,5 +1,19 @@
-# rating-overlay-api
+# Age of Empires II Definitive Edition Stream Overlay API
 
+
+## Installation
+
+- Install poetry: `curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python`
+- Create virtual environment: `python -m venv venv`
+- Activate virtual environment: `source venv/bin/activate`
+    - *On Windows run* `.\venv\Scripts\activate`
+- Install dependencies: `poetry install`
+
+Alternatively, using docker: `docker-compose build`
+
+### Setup pre-commit hook
+
+Run `pre-commit install`
 
 ## Running
 
@@ -8,7 +22,8 @@ Run `FLASK_ENV=development PYTHONPATH=$PWD python app.py`
 - *On Windows run* `SET FLASK_ENV=development & SET PYTHONPATH=%cd% & python app.py`
 
 Alternatively, using docker: `docker-compose up`
-
+    - To run the container in detached mode: `docker-compose up -d`
+    - To stop the container running in detached mode: `docker-compose stop`
 
 ## Testing
 
@@ -16,7 +31,7 @@ Run `FLASK_ENV=development PYTHONPATH=$PWD pytest`
 
 - *On Windows run* `SET FLASK_ENV=development & SET PYTHONPATH=%cd% & pytest`
 
-Alternatively, using docker: `docker-compose run app pytest`
+Alternatively, using docker: `docker-compose run rating-overlay-api pytest`
 
 
 ## Configuring CI
