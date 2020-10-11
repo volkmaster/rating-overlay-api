@@ -35,6 +35,7 @@ commands:
             echo -e "[aoe-zappa]" >> ~/.aws/credentials
             echo -e "aws_access_key_id = "$AWS_ACCESS_KEY_ID >> ~/.aws/credentials
             echo -e "aws_secret_access_key = "$AWS_SECRET_ACCESS_KEY >> ~/.aws/credentials
+            echo -e "region = "$AWS_REGION >> ~/.aws/credentials
 
 jobs:
   build:
