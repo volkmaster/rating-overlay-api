@@ -8,7 +8,8 @@ from botocore.exceptions import ClientError
 def callback(zappa_cli):
     api_gateway_url = zappa_cli.zappa.get_api_url(zappa_cli.lambda_name, zappa_cli.api_stage)
 
-    ssm_client = boto3.client("ssm")
+    session = boto3.Session(profile_name=zappa_cli.profile_name)
+    ssm_client = session.client("ssm")
     name = f"/{zappa_cli.project_name}/{zappa_cli.api_stage}/api_url"
 
     try:
