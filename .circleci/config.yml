@@ -68,7 +68,7 @@ jobs:
           name: Mypy
           command: |
             . venv/bin/activate
-            python -m mypy --config-file=mypy.ini .
+            python -m mypy --config-file=.mypy.ini .
       - run:
           name: Prospector
           command: |
