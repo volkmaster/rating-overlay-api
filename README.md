@@ -1,7 +1,7 @@
 # Age of Empires II Definitive Edition Stream Overlay API
 
 
-[![CircleCI](https://circleci.com/gh/volkmaster/rating-overlay-api.svg?style=shield)](https://app.circleci.com/pipelines/github/volkmaster/rating-overlay-api)
+[![CircleCI](https://circleci.com/gh/volkmaster/rating-overlay-api/tree/master.svg?style=shield)](https://app.circleci.com/pipelines/github/volkmaster/rating-overlay-api)
 
 
 ## Installation
