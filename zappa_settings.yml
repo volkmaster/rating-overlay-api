@@ -14,6 +14,6 @@ development:
     s3_bucket: zappa-rating-overlay-api-development
 
 production:
-    extends: remote
+    extends: base
     s3_bucket: zappa-rating-overlay-api-production
     debug: false
