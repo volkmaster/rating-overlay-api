@@ -54,6 +54,5 @@ async def fetch_apply_history(params: Dict[str, Any], players: List[Player]) -> 
             if not p.is_ai
         ]
     )
-
     for i, item in enumerate(history):
-        players[i].from_history(item[0])
+        players[i].from_history(item)

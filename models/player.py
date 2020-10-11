@@ -42,12 +42,13 @@ class Player:
         if len(data) > 0:
             self.rank = data[0]["rank"]
 
-    def from_history(self, data: Dict[str, Any]) -> None:
-        self.rating = data["rating"]
-        self.wins = data["num_wins"]
-        self.losses = data["num_losses"]
-        self.games = self.wins + self.losses
-        self.streak = data["streak"]
+    def from_history(self, data: List[Dict[str, Any]]) -> None:
+        if len(data) > 0:
+            self.rating = data[0]["rating"]
+            self.wins = data[0]["num_wins"]
+            self.losses = data[0]["num_losses"]
+            self.games = self.wins + self.losses
+            self.streak = data[0]["streak"]
 
     def __str__(self) -> str:
         return f"""
