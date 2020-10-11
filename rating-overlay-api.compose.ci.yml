@@ -1,0 +1,5 @@
+version: '3.5'
+services:
+  rating-overlay-api:
+    environment:
+      - FLASK_ENV=production

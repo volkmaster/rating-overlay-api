@@ -1,0 +1,22 @@
+base:
+    app_function: app.app
+    project_name: rating-overlay-api
+    runtime: python3.7
+    profile_name: aoe
+    aws_region: &region eu-west-1
+    environment_variables:
+        AWS_REGION: *region
+
+remote:
+    extends: base
+    callbacks:
+        post: zappa_hooks.post.callback
+
+development:
+    extends: base
+    s3_bucket: zappa-rating-overlay-api-development
+
+production:
+    extends: remote
+    s3_bucket: zappa-rating-overlay-api-production
+    debug: false
