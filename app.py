@@ -1,5 +1,3 @@
-import os
-
 from flask import Flask
 from flask_cors import CORS
 
@@ -21,7 +19,4 @@ def root():
 
 
 if __name__ == "__main__":
-    env = os.environ.get("FLASK_ENV")
-    app.run(  # nosec
-        host="0.0.0.0", port=5000, debug=env.strip() == "development" if env is not None else False
-    )
+    app.run(host="0.0.0.0", port=5000)  # nosec

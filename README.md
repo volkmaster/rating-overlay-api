@@ -17,9 +17,9 @@ Run `pre-commit install`
 
 ## Running
 
-Run `FLASK_ENV=development PYTHONPATH=$PWD python app.py`
+Run `ENV=development FLASK_ENV=development PYTHONPATH=$PWD python app.py`
 
-- *On Windows run* `SET FLASK_ENV=development & SET PYTHONPATH=%cd% & python app.py`
+- *On Windows run* `SET ENV=development & SET FLASK_ENV=development & SET PYTHONPATH=%cd% & python app.py`
 
 Alternatively, using docker: `docker-compose up`
     - To run the container in detached mode: `docker-compose up -d`
@@ -27,11 +27,11 @@ Alternatively, using docker: `docker-compose up`
 
 ## Testing
 
-Run `FLASK_ENV=development PYTHONPATH=$PWD pytest`
+Run `ENV=development FLASK_ENV=development PYTHONPATH=$PWD python -m pytest`
 
-- *On Windows run* `SET FLASK_ENV=development & SET PYTHONPATH=%cd% & pytest`
+- *On Windows run* `SET ENV=development & SET FLASK_ENV=development & SET PYTHONPATH=%cd% & python -m pytest`
 
-Alternatively, using docker: `docker-compose run rating-overlay-api pytest`
+Alternatively, using docker: `docker-compose run rating-overlay-api python -m pytest`
 
 
 ## Configuring CI

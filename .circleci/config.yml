@@ -43,7 +43,7 @@ jobs:
           name: Run tests
           command: |
             . venv/bin/activate
-            pytest
+            python -m pytest
 
   cichecks:
     executor: default-executor

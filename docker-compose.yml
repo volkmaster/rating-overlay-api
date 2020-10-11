@@ -3,6 +3,7 @@ services:
   rating-overlay-api:
     build: .
     environment:
+      - ENV=development
       - FLASK_ENV=development
     ports:
       - "5000:5000"
