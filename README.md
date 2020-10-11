@@ -37,7 +37,7 @@ Alternatively, using docker: `docker-compose run rating-overlay-api python -m py
 ## Configuring CI
 
 - You need to create a GitHub repository with the same name as the project.
-- You need to enable the project on CircleCI.
+- You need to enable the project on CircleCI (also set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_REGION` environment variables).
 
 ## Deploying
 
