@@ -49,4 +49,8 @@ To check the logs, run `zappa tail <stage>`, replacing `<stage>` with the desire
 
 See `zappa_settings.yml` for the available stages.
 
+To get the API Gateway URL for the desired state, run `aws ssm get-parameter --name "/rating-overlay-api/<stage>/api_url"`.
+- Before executing the command set AWS profile: `AWS_PROFILE=aoe` *( Windows:* `SET AWS_PROFILE=aoe` *)* 
+
+
 
