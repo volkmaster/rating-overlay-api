@@ -20,11 +20,10 @@ async def fetch_last_match(params: Dict[str, Any]) -> Tuple[Match, List[Player],
     if response is None or len(response) == 0:
         raise FetchDataException("Player not found.")
 
-    match = Match(response[0])
+    players = [Player(p) for p in response[0]["players"] if p["civ"] is not None]
 
-    players = [Player(p) for p in response[0]["players"]]
-    for i, item in enumerate(response[0]["players"]):
-        players[i].from_match(item)
+    match = Match(response[0])
+    match.set_num_ais(players)
 
     leaderboard_id = response[0]["leaderboard_id"] or 3
 

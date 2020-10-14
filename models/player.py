@@ -31,7 +31,6 @@ class Player:
             self.name = data["name"]
             self.country = data["country"]
 
-    def from_match(self, data: Dict[str, Any]) -> None:
         self.team = data["team"]
         self.civilization = CIVILIZATIONS[data["civ"]]
         self.color = COLORS[data["color"]]

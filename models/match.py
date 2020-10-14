@@ -22,6 +22,7 @@ class Match:
     lobby_id: str = ""
     name: str = ""
     num_players: int = 0
+    num_ais: int = 0
     game_type: str = ""
     map_type: str = ""
     map_size: str = ""
@@ -46,7 +47,6 @@ class Match:
         self.lobby_id = data["lobby_id"]
         self.name = data["name"]
         self.num_players = data["num_players"]
-        self.num_ais = len(data["players"]) - self.num_players
         self.game_type = GAME_TYPES[data["game_type"]]
         self.map_type = MAP_TYPES[data["map_type"]]
         self.map_size = MAP_SIZES[data["map_size"]]
@@ -66,6 +66,9 @@ class Match:
             self.started = timestamp_to_datetime(data["started"])
         if data["finished"] is not None:
             self.finished = timestamp_to_datetime(data["finished"])
+
+    def set_num_ais(self, players):
+        self.num_ais = len(players) - self.num_players
 
     def __str__(self) -> str:
         return f"""
